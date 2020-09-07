@@ -1,0 +1,64 @@
+
+1. create table Customers (
+customerNumber int(10) unique NOT null ,
+customerName varchar(40) , 
+contactLastName varchar(40), 
+contactFirstName varchar(40),
+phone int(10), 
+addressLine1 varchar(40),
+addressLine2(40), 
+city varchar(40), 
+state varchar(40), 
+postalCode varchar(6), 
+country varchar(40), 
+salesRepEmployeeNumber varchar(10) not null , 
+creditLimit decimal(10,2) , 
+PRIMARY KEY(salesRepEmployeeNumber),
+FOREIGN KEY(customerNumber) REFERENCES Orders(customerNumber)
+);
+
+
+2. create table Orders (
+orderNumber varchar(40) PRIMARY KEY, 
+orderDate timestamp,
+requiredDate timestamp, 
+shippedDate timestamp, 
+status varchar,
+comments varchar,
+customerNumber int(10) FOREIGN KEY REFERENCES Customers(customerNumber)
+);
+
+3. select * from Orders;
+
+
+4. select comments from Orders;
+
+5. select orderDate , count(orderNumber) from Orders where orderDate = shippedDate;
+
+6. select employeNumber, lastName, firstName from employees;
+
+7. select Orders.orderNumber, Customers.customerName from Customers INNER JOIN Orders ON Customers.customerNumber = Orders.customerNumber
+
+
+8. select (Customers.customerName|| Employees.lastName) as tempCol
+from Customers , Employees ;
+
+
+9. select Orders.orderDate , Payments.(select sum(amount) from Payments) from Orders INNER JOIN Payments ON Orders.customerNumber = Payments.customerNumber
+
+10. select productName, MSRP, productDescription from Products 
+
+11. select productName, count(productName),productDescription from Products group by productName;
+
+12. select top 1 city, count(orderNumber)  from Orders JOIN Customers
+ON Customers.customerNumber = Orders.customerNumber group by city 
+order by orderNumber desc;
+
+
+13.  select top 1 state , count(postalCode) from Customers group by state
+order by postalCode;
+
+
+14. select employeeNumber ,(select lastName from Customers UNION select firstName from Customers) from Customers
+
+15. none
